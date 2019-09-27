@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+<meta charset='UTF-8'>
+<link rel='stylesheet' href='style.css'>
 <html>
     <body>
         <h1>Kivi, paperi, sakset (FT5)</h1>
-        <p>Konsolissa kierros breakdown</p>
-        <button id="kivi">Kivi</button>
-        <button id="paperi">Paperi</button>
-        <button id="sakset">Sakset</button>
-        <div class="pisteTaulu">
+        <button id='kivi'>Kivi</button>
+        <button id='paperi'>Paperi</button>
+        <button id='sakset'>Sakset</button>
+        <div class='pisteTaulu'>
             <table>
                 <tr>
                     <td>Pelaajan pongot</td>
-                    <td id="pPiste">0</td>
+                    <td id='pPiste'>0</td>
                 </tr>
                 <tr>
                     <td>Koneen pongot</td>
-                    <td id="kPiste">0</td>
+                    <td id='kPiste'>0</td>
                 </tr>
             </table>
+        </div>
+        <div>
+            <h3 id="kierrosInfo"></h3>
+            <h3 id="kierrosTeksti"></h3>
         </div>
         <script>
             let kone = 0;
             let pelaaja = 0;
-            const kivi = document.getElementById("kivi");
-            const paperi = document.getElementById("paperi");
-            const sakset = document.getElementById("sakset");
+            let message = '';
+            const kivi = document.querySelector('#kivi');
+            const paperi = document.querySelector('#paperi');
+            const sakset = document.querySelector('#sakset');
+            const info = document.querySelector('#kierrosInfo');
+            const teksti = document.querySelector('#kierrosTeksti');
+
             function konePlay(){
-                let kps = ["kivi", "paperi", "sakset"];
+                let kps = ['kivi', 'paperi', 'sakset'];
                 let koneRoll = kps[Math.floor(Math.random() * kps.length)];
                 return(koneRoll);
             }
@@ -35,49 +42,49 @@
                 pelaajaValinta = event.target.id;
                 koneValinta = konePlay();
                 if (koneValinta == pelaajaValinta) {
-                    console.log("Tasuri");
+                    teksti.textContent = 'Tasuri';
                 }
-                else if (koneValinta == "kivi" && pelaajaValinta == "sakset") {
-                    console.log("Hävisit, kivi voittaa sakset");
+                else if (koneValinta == 'kivi' && pelaajaValinta == 'sakset') {
+                    teksti.textContent = 'Hävisit, kivi voittaa sakset';
                     kone++;
                 }
-                else if (koneValinta == "sakset" && pelaajaValinta == "paperi") {
-                    console.log("Hävisit, sakset voittaa paperin");
+                else if (koneValinta == 'sakset' && pelaajaValinta == 'paperi') {
+                    teksti.textContent = 'Hävisit, sakset voittaa paperin';
                     kone++;
                 }
-                else if (koneValinta == "paperi" && pelaajaValinta == "kivi") {
-                    console.log("Hävisit, paperi voittaa kiven");
+                else if (koneValinta == 'paperi' && pelaajaValinta == 'kivi') {
+                    teksti.textContent = 'Hävisit, paperi voittaa kiven';
                     kone++;
                 }
-                else if (koneValinta == "kivi" && pelaajaValinta == "paperi") {
-                    console.log("Voitit, paperi voittaa kiven");
+                else if (koneValinta == 'kivi' && pelaajaValinta == 'paperi') {
+                    teksti.textContent = 'Voitit, paperi voittaa kiven';
                     ++pelaaja;
                 }
-                else if (koneValinta == "sakset" && pelaajaValinta == "kivi") {
-                    console.log("Voitit, kivi voittaa sakset");
+                else if (koneValinta == 'sakset' && pelaajaValinta == 'kivi') {
+                    teksti.textContent = 'Voitit, kivi voittaa sakset';
                     ++pelaaja;
                 }
-                else if (koneValinta == "paperi" && pelaajaValinta == "sakset") {
-                    console.log("Voitit, sakset voittaa paperin");
+                else if (koneValinta == 'paperi' && pelaajaValinta == 'sakset') {
+                    teksti.textContent = 'Voitit, sakset voittaa paperin';
                     ++pelaaja;
                 }
                 if (kone == 5) {
-                    alert("Kone voitti");
+                    alert('Kone voitti');
                     kone = 0;
                     pelaaja = 0;
                 }
                 if (pelaaja == 5) {
-                    alert("Sinä voitit");
+                    alert('Sinä voitit');
                     kone = 0;
                     pelaaja = 0;
                 }
-            console.log(koneValinta, pelaajaValinta);
-            document.getElementById("pPiste").innerHTML = pelaaja;
-            document.getElementById("kPiste").innerHTML = kone;
+            info.textContent = ("Tietokone valitsi: " + koneValinta +  ", Sinä valitsit: " + pelaajaValinta);
+            document.querySelector('#pPiste').innerHTML = pelaaja;
+            document.querySelector('#kPiste').innerHTML = kone;
             }
             kivi.addEventListener('click', playRound);
-            paperi.addEventListener("click", playRound);
-            sakset.addEventListener("click", playRound);
+            paperi.addEventListener('click', playRound);
+            sakset.addEventListener('click', playRound);
         </script>
     </body>
 </html>
